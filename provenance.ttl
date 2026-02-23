@@ -1,0 +1,83 @@
+@prefix ex: <http://example.org/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# -----------------------------------------------
+# ENTITIES
+# -----------------------------------------------
+ex:survey1 a prov:Entity .          # Laura's original survey design
+ex:surveyData1 a prov:Entity .      # Data collected by Jack and Jill
+ex:survey2 a prov:Entity .          # Laura's revised survey
+ex:surveyData2 a prov:Entity .      # Data collected by Peter and Paula
+ex:analysis a prov:Entity .         # Compiled analysis results
+ex:paper a prov:Entity .            # Published research paper
+
+# -----------------------------------------------
+# ACTIVITIES
+# -----------------------------------------------
+ex:design a prov:Activity .         # Designing the original survey
+ex:conduct1 a prov:Activity .       # Conducting the first survey
+ex:revise a prov:Activity .         # Revising the survey
+ex:conduct2 a prov:Activity .       # Conducting the second survey
+ex:compile a prov:Activity .        # Compiling and analyzing all results
+ex:publish a prov:Activity .        # Publishing the paper
+
+# -----------------------------------------------
+# AGENTS
+# -----------------------------------------------
+ex:laura a prov:Agent, prov:Person .
+ex:jack a prov:Agent, prov:Person .
+ex:jill a prov:Agent, prov:Person .
+ex:peter a prov:Agent, prov:Person .
+ex:paula a prov:Agent, prov:Person .
+ex:zack a prov:Agent, prov:Person .
+ex:otherCoauthors a prov:Agent .
+
+# -----------------------------------------------
+# PLANS
+# -----------------------------------------------
+ex:surveyDesignPlan a prov:Plan .
+ex:analysisProtocol a prov:Plan .
+
+# -----------------------------------------------
+# USAGE AND GENERATION
+# -----------------------------------------------
+
+# Laura designs the original survey
+ex:design prov:used ex:surveyDesignPlan ;
+          prov:wasAssociatedWith ex:laura .
+ex:survey1 prov:wasGeneratedBy ex:design .
+
+# Jack and Jill conduct the first survey
+ex:conduct1 prov:used ex:survey1 ;
+            prov:wasAssociatedWith ex:jack, ex:jill .
+ex:surveyData1 prov:wasGeneratedBy ex:conduct1 .
+
+# Laura revises the survey a year later
+ex:revise prov:used ex:surveyData1 ;
+          prov:wasAssociatedWith ex:laura .
+ex:survey2 prov:wasGeneratedBy ex:revise ;
+           prov:wasRevisionOf ex:survey1 .
+
+# Peter and Paula conduct the second survey
+ex:conduct2 prov:used ex:survey2 ;
+            prov:wasAssociatedWith ex:peter, ex:paula .
+ex:surveyData2 prov:wasGeneratedBy ex:conduct2 .
+
+# Zack compiles all results and analyzes them
+ex:compile prov:used ex:surveyData1, ex:surveyData2 ;
+           prov:wasAssociatedWith ex:zack ;
+           prov:hadPlan ex:analysisProtocol .
+ex:analysis prov:wasGeneratedBy ex:compile .
+
+# Laura, Zack and coauthors publish the paper
+ex:publish prov:used ex:analysis ;
+           prov:wasAssociatedWith ex:laura, ex:zack, ex:otherCoauthors .
+ex:paper prov:wasGeneratedBy ex:publish .
+
+# -----------------------------------------------
+# DERIVATIONS AND REVISIONS
+# -----------------------------------------------
+ex:paper prov:wasDerivedFrom ex:analysis .
+ex:paper prov:wasDerivedFrom ex:surveyData1, ex:surveyData2 .
+ex:survey2 prov:wasRevisionOf ex:survey1 .
