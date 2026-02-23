@@ -1,0 +1,19 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Seminary-3",
+  "description": "A sample data processing script created as part of the Scientific Paper of the Future seminar.",
+  "version": "1.0.0",
+  "datePublished": "2026-02-23",
+  "license": "https://spdx.org/licenses/Apache-2.0",
+  "codeRepository": "https://github.com/Sankatt/Seminary-3",
+  "identifier": "https://doi.org/10.5281/zenodo.18748791",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Dhanesh",
+      "familyName": "Sankar",
+      "email": "dhanesh.sankar@alumnos.upm.es"
+    }
+  ]
+}
